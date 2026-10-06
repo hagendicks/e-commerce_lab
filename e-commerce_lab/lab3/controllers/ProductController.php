@@ -44,6 +44,35 @@ class ProductController
 {
     return $this->productModel->deleteBrand($id);
 }
+public function addCategory($name)
+{
+    return $this->productModel->addCategory($name);
+}
+
+
+public function getAllCategories()
+{
+    return $this->productModel->getAllCategories();
+}
+
+
+public function getCategoryById($id)
+{
+    return $this->productModel->getCategoryById($id);
+}
+
+
+public function updateCategory($id, $name)
+{
+    return $this->productModel->updateCategory(
+        $id,
+        $name
+    );
+}
+public function deleteCategory($id)
+{
+    return $this->productModel->deleteCategory($id);
+}
 }
 
 ?>
