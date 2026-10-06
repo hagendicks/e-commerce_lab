@@ -1,12 +1,14 @@
-```php
 <?php
 
 require_once __DIR__ . '/../core/core.php';
+
 require_once __DIR__ . '/../controllers/ProductController.php';
 
 header('Content-Type: application/json');
 
+
 if (!is_admin()) {
+
     http_response_code(403);
 
     echo json_encode([
@@ -17,7 +19,9 @@ if (!is_admin()) {
     exit;
 }
 
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+
     http_response_code(405);
 
     echo json_encode([
@@ -28,37 +32,35 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-$id = filter_var(
-    $_POST['brand_id'] ?? null,
-    FILTER_VALIDATE_INT
-);
+
+$id =
+    filter_var(
+        $_POST['cat_id'] ?? null,
+        FILTER_VALIDATE_INT
+    );
+
 
 if (!$id || $id <= 0) {
+
     echo json_encode([
         'success' => false,
-        'error' => 'Invalid brand ID.'
+        'error' => 'Invalid category ID.'
     ]);
 
     exit;
 }
 
-$controller = new ProductController();
 
-$success = $controller->deleteBrand($id);
+$controller =
+    new ProductController();
 
-if ($success) {
-    echo json_encode([
-        'success' => true,
-        'message' => 'Brand deleted successfully.'
-    ]);
 
-    exit;
-}
+$result =
+    $controller->deleteCategory($id);
 
-echo json_encode([
-    'success' => false,
-    'error' => 'Unable to delete brand. It may be linked to existing products.'
-]);
+
+echo json_encode($result);
+
+exit;
 
 ?>
-```
