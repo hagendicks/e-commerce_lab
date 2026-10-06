@@ -59,10 +59,17 @@ require_once __DIR__ . '/../../core/core.php';
                 </a>
 
                 <?php if (is_admin()): ?>
+                    <li>
+                        <a href="<?= BASE_URL ?>/views/admin/brand.php">
+                            Brand
+                        </a>
+                    </li>
 
-                    <a href="<?= BASE_URL ?>/views/admin/brand.php">
-                        Brands
-                    </a>
+                    <li>
+                        <a href="<?= BASE_URL ?>/views/admin/category.php">
+                            Category
+                        </a>
+                    </li>
 
                 <?php endif; ?>
 
