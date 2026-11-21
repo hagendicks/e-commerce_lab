@@ -4,63 +4,41 @@ require_once __DIR__ . '/../../core/core.php';
 
 require_login();
 
-require_once __DIR__ . '/../../controllers/CustomerController.php';
-
-$controller = new CustomerController();
-
-$customer = $controller->getCustomerById((int) $_SESSION['customer_id']);
-
-if (!$customer) {
-    redirect(BASE_URL . '/logout.php');
-}
-
-$countries = ['Ghana', 'Nigeria', 'Togo', 'Ivory Coast'];
-
 require_once __DIR__ . '/../layout/header.php';
 
 ?>
 
 <div class="form-container">
 
-    <h1>Edit Account</h1>
+    <h1>Change Password</h1>
 
-    <form id="editAccountForm" method="POST" action="<?= BASE_URL ?>/actions/update_account_action.php" novalidate>
+    <form id="changePassForm" method="POST" action="<?= BASE_URL ?>/actions/change_password_action.php" novalidate>
 
         <div class="form-group">
-            <label for="customer_email">Email</label>
-            <input type="email" id="customer_email" value="<?= htmlspecialchars($customer['customer_email']) ?>" disabled>
+            <label for="current_password">Current Password</label>
+            <input type="password" id="current_password" name="current_password" autocomplete="current-password">
+            <div class="error-message" id="currentError"></div>
         </div>
 
         <div class="form-group">
-            <label for="customer_name">Full Name</label>
-            <input type="text" id="customer_name" name="customer_name" value="<?= htmlspecialchars($customer['customer_name']) ?>">
-            <div class="error-message" id="nameError"></div>
+            <label for="new_password">New Password</label>
+            <input type="password" id="new_password" name="new_password" autocomplete="new-password">
+            <div class="password-requirements">
+                <p id="length">✗ At least 8 characters</p>
+                <p id="uppercase">✗ One uppercase letter</p>
+                <p id="lowercase">✗ One lowercase letter</p>
+                <p id="number">✗ One number</p>
+                <p id="special">✗ One special character</p>
+            </div>
         </div>
 
         <div class="form-group">
-            <label for="customer_country">Country</label>
-            <select id="customer_country" name="customer_country">
-                <?php foreach ($countries as $country): ?>
-                    <option value="<?= htmlspecialchars($country) ?>" <?= $customer['customer_country'] === $country ? 'selected' : '' ?>>
-                        <?= htmlspecialchars($country) ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
+            <label for="confirm_password">Confirm New Password</label>
+            <input type="password" id="confirm_password" name="confirm_password" autocomplete="new-password">
+            <div class="error-message" id="confirmError"></div>
         </div>
 
-        <div class="form-group">
-            <label for="customer_city">City</label>
-            <input type="text" id="customer_city" name="customer_city" value="<?= htmlspecialchars($customer['customer_city']) ?>">
-            <div class="error-message" id="cityError"></div>
-        </div>
-
-        <div class="form-group">
-            <label for="customer_contact">Contact Number</label>
-            <input type="text" id="customer_contact" name="customer_contact" value="<?= htmlspecialchars($customer['customer_contact']) ?>">
-            <div class="error-message" id="contactError"></div>
-        </div>
-
-        <button type="submit" class="btn">Save Changes</button>
+        <button type="submit" class="btn">Change Password</button>
 
     </form>
 
